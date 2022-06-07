@@ -16,6 +16,7 @@ import torch.utils.data
 from torch.autograd import Variable
 import time
 from utils.io import mkdir_p
+import pandas as pd
 from utils.util_flow import write_flow, save_pfm
 cudnn.benchmark = False
 
@@ -234,10 +235,23 @@ def main():
         cv2.imwrite('%s/%s/ent-%s.png'% (args.outdir, args.dataset,idxname.rsplit('.',1)[0]), entropy*200)
             
         torch.cuda.empty_cache()
-    print(np.mean(ttime_all))
+    
+    data = {"total_time" : np.array(ttime_all)}
+    df = pd.DataFrame.from_dict(data)
+    # df.to_csv(csv_file_path)
+    print("time:\n", df.describe())
+    # print(np.mean(ttime_all))
                 
             
 
 if __name__ == '__main__':
     main()
 
+# count  200.000000
+# mean     0.298356
+# std      0.010372
+# min      0.288445
+# 25%      0.294900
+# 50%      0.297742
+# 75%      0.299976
+# max      0.433385
