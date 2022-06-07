@@ -21,7 +21,7 @@ def dataloader(filepath):
 
   train = [img for img in os.listdir(filepath+left_fold) if img.find('_10') > -1]
 
-  train = [i for i in train if int(i.split('_')[0])%5==0]
+  train = [i for i in train] # if int(i.split('_')[0])%5==0]
 
   l0_train  = [filepath+left_fold+img for img in train]
   l1_train = [filepath+left_fold+img.replace('_10','_11') for img in train]
